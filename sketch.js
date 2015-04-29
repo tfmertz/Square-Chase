@@ -1,33 +1,54 @@
 var square;
 var score = 0;
-var timer = 30;
+var timer = 3;
 var gameOver = false;
+var startGame = false;
 
-function setup() {
-    createCanvas(windowWidth, windowHeight);
-    background(0);
-    square = new Target();
-    textSize(32);
-    setInterval(myTimer, 1000);
-}
-
-function myTimer() {
+function countdown() {
     if( timer > 0) {
         timer -= 1;
     } else {
         gameOver = true;
+        startGame = false;
     }
+}
+
+function start() {
+    var myTimer = setInterval(countdown, 1000);
+
+}
+
+function mouseClicked(){
+    if(startGame === false) {
+        startGame = true;
+        gameOver = false;
+        start();
+    }
+}
+
+function setup() {
+
+    createCanvas(windowWidth, windowHeight);
+    background(0);
+    square = new Target();
+    textSize(32);
+    fill(255);
+    textAlign(CENTER);
+    text("Keep the cursor over the square to earn points. \nSee how many you can get before the timer runs out! \nClick to start", width/2, height/2);
+
 }
 
 function draw() {
 
-    if(!gameOver) {
+
+    if((!gameOver) && (startGame)) {
         background(0);
         square.move();
         square.display();
         fill(255);
-        text("score: " + score, 50, windowHeight - 50);
-        text("Timer: " + timer, windowWidth - 200, windowHeight - 50);
+        textAlign(LEFT);
+        text("Score: " + score, 50, windowHeight - 50);
+        text("Timer: " + timer, windowWidth - 175, windowHeight - 50);
     }
 }
 
@@ -36,8 +57,9 @@ function windowResized() {
     background(0);
     textSize(32);
     square.display();
-    text("score: " + score, 50, windowHeight - 50);
-    text("Timer: " + timer, windowWidth - 150, windowHeight - 50);
+    fill(255);
+    text("Score: " + score, 50, windowHeight - 50);
+    text("Timer: " + timer, windowWidth - 175, windowHeight - 50);
 }
 
 function Target(){
