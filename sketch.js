@@ -3,6 +3,7 @@ var score = 0;
 var timer = 3;
 var gameOver = false;
 var startGame = false;
+var gameTimer = null;
 
 function countdown() {
     if( timer > 0) {
@@ -13,16 +14,23 @@ function countdown() {
     }
 }
 
-function start() {
-    var myTimer = setInterval(countdown, 1000);
+function startTimer() {
+    if(gameTimer !== null) {
+        clearInterval(gameTimer);
+    }
+
+    gameTimer = setInterval(countdown, 1000);
 
 }
 
 function mouseClicked(){
     if(startGame === false) {
+        timer = 3;
         startGame = true;
         gameOver = false;
-        start();
+        score = 0;
+        startTimer();
+        square = new Target();
     }
 }
 
@@ -30,11 +38,11 @@ function setup() {
 
     createCanvas(windowWidth, windowHeight);
     background(0);
-    square = new Target();
     textSize(32);
     fill(255);
     textAlign(CENTER);
-    text("Keep the cursor over the square to earn points. \nSee how many you can get before the timer runs out! \nClick to start", width/2, height/2);
+    text("Keep the cursor over the square to earn points.\nSee how many you can get before the timer runs out!\nClick to start", width/2, height/2);
+
 
 }
 
