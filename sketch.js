@@ -7,7 +7,7 @@ function setup() {
 }
 
 function draw() {
-
+    background(0);
     square.move();
     square.display();
 }
@@ -20,12 +20,25 @@ function windowResized() {
 function Target(){
     this.x = width/2;
     this.y = height/2;
-    this.diameter = random(10,30);
-    this.speed = 5;
+    this.diameter = 50;
+    this.Xspeed = 3;
+    this.Yspeed = 3;
 
     this.move = function() {
-        this.x += random(-this.speed, this.speed);
-        this.y += random(-this.speed, this.speed);
+        if (this.x > windowWidth - this.diameter) {
+            this.Xspeed *= -1;
+        }
+        if (this.x < 0) {
+            this.Xspeed *= -1;
+        }
+        if (this.y > windowHeight - this.diameter) {
+            this.Yspeed *= -1;
+        }
+        if (this.y < 0) {
+            this.Yspeed *= -1;
+        }
+        this.x += this.Xspeed;
+        this.y += this.Yspeed;
     };
 
     this.display = function() {
