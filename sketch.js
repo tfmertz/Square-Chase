@@ -25,6 +25,7 @@ function draw() {
         background(0);
         square.move();
         square.display();
+        fill(255);
         text("score: " + score, 50, windowHeight - 50);
         text("Timer: " + timer, windowWidth - 200, windowHeight - 50);
     }
@@ -47,7 +48,11 @@ function Target(){
     this.variation = 0.01;
     var randNumX = random(-1, 1);
     var randNumY = random(-1, 1);
-
+    //
+    // this.Xvelocity = 0;
+    // this.Yvelocity = 0;
+    //
+    //
     this.Xvelocity = (randNumX == 0) ? 1 : randNumX;
     this.Yvelocity = (randNumY == 0) ? 1 : randNumY;
     this.acceleration;
@@ -81,6 +86,12 @@ function Target(){
             score++;
         }
 
+
+        if (mouseX >= this.x + 18.75 && mouseX <= this.x + 31.25 && mouseY >= this.y + 18.75 && mouseY <= this.y + 31.25) {
+            this.Xvelocity *= (1 + random(0, this.variation));
+            this.Yvelocity *= (1 + random(0, this.variation));
+            score+=2;
+        }
         //caps the velocity at maxSpeed
         if(this.Xvelocity > this.maxSpeed) {
             this.Xvelocity = this.maxSpeed;
@@ -94,5 +105,8 @@ function Target(){
 
     this.display = function() {
         rect(this.x, this.y, this.diameter, this.diameter);
+        fill('red');
+        rect(this.x + 18.75, this.y + 18.75, this.diameter/4, this.diameter/4);
+
     }
 }
