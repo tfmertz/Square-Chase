@@ -1,23 +1,33 @@
 var square;
 var score = 0;
+var timer = 30;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     background(0);
     square = new Target();
     textSize(32);
+    setInterval(myTimer, 1000);
+}
+
+function myTimer() {
+    timer -= 1;
 }
 
 function draw() {
     background(0);
     square.move();
     square.display();
-    text("score: " + score, 50, windowHeight-50);
+    text("score: " + score, 50, windowHeight - 50);
+    text("Timer: " + timer, windowWidth - 200, windowHeight - 50)
 }
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     background(0);
+    textSize(32);
+    text("score: " + score, 50, windowHeight - 50);
+    text("Timer: " + timer, windowWidth - 150, windowHeight - 50)
 }
 
 function Target(){
@@ -53,7 +63,6 @@ function Target(){
             this.Xspeed *= (1 + random(0, this.variation));
             this.Yspeed *= (1 + random(0, this.variation));
             score++;
-
         }
 
 
