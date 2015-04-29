@@ -1,5 +1,6 @@
 var square;
 var score = 0;
+var highscores = [];
 var timer;
 var gameOver = false;
 var startGame = false;
@@ -9,10 +10,14 @@ function countdown() {
     if( timer > 0) {
         timer -= 1;
     } else {
+        highscores.push(score);
         gameOver = true;
         startGame = false;
+
+        var sorted = highscores.sort(function(a, b) { return b - a;});
         textAlign(CENTER);
         text("Time's up! Your score is " + score + "\nClick to restart.", width/2, 100);
+        text("The high score is " + sorted[0], width/2, 250);
     }
 }
 
@@ -50,7 +55,6 @@ function setup() {
 }
 
 function draw() {
-
 
     if((!gameOver) && (startGame)) {
         background(0);
