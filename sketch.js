@@ -1,6 +1,6 @@
 var square;
 var score = 0;
-var timer = 3;
+var timer = 30;
 var gameOver = false;
 
 function setup() {
@@ -26,7 +26,7 @@ function draw() {
         square.move();
         square.display();
         text("score: " + score, 50, windowHeight - 50);
-        text("Timer: " + timer, windowWidth - 200, windowHeight - 50)
+        text("Timer: " + timer, windowWidth - 200, windowHeight - 50);
     }
 }
 
@@ -36,7 +36,7 @@ function windowResized() {
     textSize(32);
     square.display();
     text("score: " + score, 50, windowHeight - 50);
-    text("Timer: " + timer, windowWidth - 150, windowHeight - 50)
+    text("Timer: " + timer, windowWidth - 150, windowHeight - 50);
 }
 
 function Target(){
@@ -45,47 +45,51 @@ function Target(){
     this.maxSpeed = 15;
     this.diameter = 50;
     this.variation = 0.01;
-    this.Xspeed = 1;
-    this.Yspeed = 1;
+    var randNumX = random(-1, 1);
+    var randNumY = random(-1, 1);
+
+    this.Xvelocity = (randNumX == 0) ? 1 : randNumX;
+    this.Yvelocity = (randNumY == 0) ? 1 : randNumY;
+    this.acceleration;
 
     this.move = function() {
 
         //prevents the box from going off the screen
         if (this.x > windowWidth - this.diameter) {
             //add slight variation
-            this.Xspeed *= -1;
+            this.Xvelocity *= -1;
             this.x = windowWidth - this.diameter - 1;
         }
         if (this.x < 0) {
-            this.Xspeed *= -1;
+            this.Xvelocity *= -1;
             this.x = 1;
         }
         if (this.y > windowHeight - this.diameter) {
-            this.Yspeed *= -1;
+            this.Yvelocity *= -1;
             this.y = windowHeight - this.diameter -1;
         }
         if (this.y < 0) {
-            this.Yspeed *= -1;
+            this.Yvelocity *= -1;
             this.y = 1;
         }
 
         //checks if the mouse is inside the box
         //gives points if it is
         if (mouseX >= this.x && mouseX <= this.x + this.diameter && mouseY >= this.y && mouseY <= this.y + this.diameter ) {
-            this.Xspeed *= (1 + random(0, this.variation));
-            this.Yspeed *= (1 + random(0, this.variation));
+            this.Xvelocity *= (1 + random(0, this.variation));
+            this.Yvelocity *= (1 + random(0, this.variation));
             score++;
         }
 
-        //caps the speed at maxSpeed
-        if(this.Xspeed > this.maxSpeed) {
-            this.Xspeed = this.maxSpeed;
+        //caps the velocity at maxSpeed
+        if(this.Xvelocity > this.maxSpeed) {
+            this.Xvelocity = this.maxSpeed;
         }
-        if(this.Yspeed > this.maxSpeed) {
-            this.Yspeed = this.maxSpeed;
+        if(this.Yvelocity > this.maxSpeed) {
+            this.Yvelocity = this.maxSpeed;
         }
-        this.x += this.Xspeed;
-        this.y += this.Yspeed;
+        this.x += this.Xvelocity;
+        this.y += this.Yvelocity;
     };
 
     this.display = function() {
