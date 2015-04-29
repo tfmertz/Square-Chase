@@ -1,15 +1,18 @@
 var square;
+var score = 0;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     background(0);
     square = new Target();
+    textSize(32);
 }
 
 function draw() {
     background(0);
     square.move();
     square.display();
+    text("score: " + score, 50, windowHeight-50);
 }
 
 function windowResized() {
@@ -49,6 +52,7 @@ function Target(){
         if (mouseX >= this.x && mouseX <= this.x + this.diameter && mouseY >= this.y && mouseY <= this.y + this.diameter ) {
             this.Xspeed *= (1 + random(0, this.variation));
             this.Yspeed *= (1 + random(0, this.variation));
+            score++;
 
         }
 
