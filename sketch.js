@@ -147,7 +147,7 @@ function Target() {
         score += 2;
       }
     }
-    else {
+    else if(this.Xvelocity > 1 && this.Yvelocity > 1) {
       //if not slow the box down
       this.Xvelocity *= (1 - this.variation);
       this.Yvelocity *= (1 - this.variation);
