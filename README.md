@@ -12,8 +12,14 @@ This game challenges the user to chase an accelerating square around the screen,
 
 1. `git clone` the repository
 2. `cd` into the project directory
-3. open index.html in your browser
+3. Open `index.html` in your browser
 
+#### Instructions
+
+Follow the box with the mouse. When you are touching the box you get points,
+if you are touching the red box you earn triple points.
+
+The box speeds up when you are touching it and slows down when you aren't.
 
 #### Technologies
 
